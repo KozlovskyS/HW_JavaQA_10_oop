@@ -3,6 +3,17 @@ package ru.netology.javaqa;
 public class Radio {
     private int currentStation;
     private int currentVolume;
+    private int quantityStation = 10; //количество станций по умолчанию
+    private int minNumberStation = 0;
+    private int maxNumberStation;
+
+    public Radio () {
+        this.maxNumberStation = quantityStation - 1;
+    }
+
+    public Radio (int quantityStation) {
+        this.maxNumberStation = quantityStation - 1;
+    }
 
     //управление выбором номера станции
 
@@ -11,10 +22,10 @@ public class Radio {
     }
 
     public void setCurrentStation(int newStation) {
-        if (newStation < 0) {
+        if (newStation < minNumberStation) {
             return;
         }
-        if (newStation > 9) {
+        if (newStation > maxNumberStation) {
             return;
         }
         currentStation = newStation;
@@ -22,17 +33,17 @@ public class Radio {
 
     public void nextStation() {
         int target = getCurrentStation() + 1;
-        if (target < 10) {
+        if (target < maxNumberStation + 1) {
             setCurrentStation(target);
         } else {
-            setCurrentStation(0);
+            setCurrentStation(minNumberStation);
         }
     }
 
     public void prevStation() {
         int target = getCurrentStation() - 1;
-        if (target < 0) {
-            setCurrentStation(9);
+        if (target < minNumberStation) {
+            setCurrentStation(maxNumberStation);
         } else {
             setCurrentStation(target);
         }
